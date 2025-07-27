@@ -7,7 +7,8 @@ const requiredEnv = [
   "PUBSUB_TOPIC",
   "FRONTEND_ORIGIN",
   "GOOGLE_APPLICATION_CREDENTIALS",
-  "GCP_PROJECT_ID"
+  "GCP_PROJECT_ID",
+  "NODE_ENV",
 ];
 
 requiredEnv.forEach((key) => {
@@ -27,4 +28,5 @@ export const config = {
     bucketName: process.env.GCS_BUCKET!,
   },
   FrontendOrigin: process.env.FRONTEND_ORIGIN!,
+  nodeEnv: process.env.NODE_ENV!,
 };

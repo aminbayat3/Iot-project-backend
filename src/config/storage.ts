@@ -1,10 +1,14 @@
 import { Storage } from "@google-cloud/storage";
 import { config } from './config';
 
-const storage = new Storage({
-  keyFilename: config.pubsub.keyFilename, 
-});
+let storage: Storage;
 
+if (config.nodeEnv === "production") {
+  const credentials = JSON.parse(config.pubsub.keyFilename);
+  storage = new Storage({ credentials });
+} else {
+  storage = new Storage({ keyFilename: config.pubsub.keyFilename });
+}
 const bucket = storage.bucket(config.storage.bucketName);
 
 export const uploadFileToGCS = async (file: Express.Multer.File): Promise<string> => {
