@@ -2,7 +2,7 @@ import { Storage } from "@google-cloud/storage";
 import { config } from './config';
 
 const storage = new Storage({
-  keyFilename: "serviceAccountKey.json", 
+  keyFilename: config.pubsub.keyFilename, 
 });
 
 const bucket = storage.bucket(config.storage.bucketName);

@@ -5,7 +5,7 @@ import { db } from "./config/firestore";
 
 dotenv.config();
 
-const PORT = config.port || 5000;
+const PORT = config.port || 3000;
 
 const startServer = async () => {
   try {
