@@ -29,8 +29,9 @@ RUN npm ci --omit=dev
 # Optionally: copy your serviceAccountKey if needed at runtime
 # COPY serviceAccountKey.json ./serviceAccountKey.json
 
-# Set environment variables if needed (or use a .env file mounted by Docker/Kubernetes)
-# ENV PORT=3000
+# Default environment variable setup (can be overridden)
+ENV NODE_ENV=production
+ENV PORT=3000
 
 # Expose backend port
 EXPOSE 3000
