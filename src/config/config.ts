@@ -6,6 +6,8 @@ const requiredEnv = [
   "GCS_BUCKET",
   "PUBSUB_TOPIC",
   "FRONTEND_ORIGIN",
+  "GOOGLE_APPLICATION_CREDENTIALS",
+  "GCP_PROJECT_ID"
 ];
 
 requiredEnv.forEach((key) => {
@@ -17,7 +19,9 @@ requiredEnv.forEach((key) => {
 export const config = {
   port: parseInt(process.env.PORT!, 10),
   pubsub:{
-    topicName: process.env.PUBSUB_TOPIC!
+    topicName: process.env.PUBSUB_TOPIC!,
+    projectId: process.env.GCP_PROJECT_ID!,
+    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS!,
   },
   storage: {
     bucketName: process.env.GCS_BUCKET!,

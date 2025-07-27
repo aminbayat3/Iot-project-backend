@@ -1,8 +1,12 @@
 import { PubSub } from "@google-cloud/pubsub";
 import dotenv from "dotenv";
+import { config } from "./config";
 dotenv.config();
 
-const pubsub = new PubSub();
+const pubsub = new PubSub({
+  projectId: config.pubsub.projectId,
+  keyFilename: config.pubsub.keyFilename,
+});
 
 export const publishToTopic = async (
   topicName: string,

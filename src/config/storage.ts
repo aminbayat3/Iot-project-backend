@@ -19,9 +19,19 @@ export const uploadFileToGCS = async (file: Express.Multer.File): Promise<string
     });
 
     stream.on("error", (err) => reject(err));
-    stream.on("finish", () => {
-      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${gcsFile.name}`;
-      resolve(publicUrl);
+
+    stream.on("finish", async () => {
+      try {
+        // Generate signed URL (valid for 15 minutes)
+        const [url] = await gcsFile.getSignedUrl({
+          action: "read",
+          expires: Date.now() + 15 * 60 * 1000, // 15 minutes
+        });
+
+        resolve(url);
+      } catch (err) {
+        reject(`Failed to generate signed URL: ${err}`);
+      }
     });
 
     stream.end(file.buffer);

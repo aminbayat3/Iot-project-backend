@@ -3,8 +3,8 @@ import { db } from "../config/firestore";
 import { uploadFileToGCS } from "../config/storage";
 import { v4 as uuidv4 } from "uuid";
 import { ApiError } from "../utils/ApiError";
-import { publishToTopic } from "config/pubsub";
-import { config } from "../config/config"
+import { publishToTopic } from "../config/pubsub";
+import { config } from "../config/config";
 
 /**
  * POST /documents/upload
@@ -34,7 +34,13 @@ export const uploadDocument = async (req: Request, res: Response) => {
     fileUrl,
   });
 
-  res.status(201).json({ message: "Document uploaded", fileId });
+  res
+    .status(201)
+    .json({
+      message: "Document uploaded",
+      fileId,
+      filename: req.file.originalname,
+    });
 };
 
 /**

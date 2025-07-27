@@ -1,12 +1,12 @@
-import admin from "firebase-admin";
-import { readFileSync } from "fs";
+import admin, { ServiceAccount } from "firebase-admin";
+import serviceAccountJson from "../../serviceAccountKey.json";
+import { config } from "./config";
 
-const serviceAccount = JSON.parse(
-  readFileSync("serviceAccountKey.json", "utf-8")
-);
+const serviceAccount = serviceAccountJson as ServiceAccount;
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
+  storageBucket: config.storage.bucketName
 });
 
 const db = admin.firestore();
