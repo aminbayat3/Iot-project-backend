@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { authenticate } from "middlewares/auth";
 import { asyncHandler } from "../utils/asynHandler";
 import multer from "multer";
 import {
@@ -10,8 +11,8 @@ import {
 const router = Router({ mergeParams: true });
 const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/upload", upload.single("file"), asyncHandler(uploadDocument));
-router.get("/", asyncHandler(getAllDocuments));
-router.get("/:id", asyncHandler(getDocumentById));
+router.post("/upload", authenticate, upload.single("file"), asyncHandler(uploadDocument));
+router.get("/", authenticate, asyncHandler(getAllDocuments));
+router.get("/:id", authenticate, asyncHandler(getDocumentById));
 
 export default router;
