@@ -46,10 +46,37 @@ The service integrates with **Google Cloud Storage (GCS)**, **Firestore**, and *
 
 ## 📦 Installation & Local Development
 
-### 1️⃣ Clone the repository
+**Clone the repository**
 git clone https://github.com/yourusername/document-backend.git
 cd document-backend
 
+**Install dependencies**
+npm ci
 
-git clone https://github.com/yourusername/document-backend.git
-cd document-backend
+**Set up environment variables**
+Create a .env file in the root directory:
+PORT=3000
+GCP_PROJECT_ID=your-gcp-project-id
+GCS_BUCKET_NAME=your-bucket-name
+PUBSUB_TOPIC=document-uploaded
+FIREBASE_CREDENTIALS=/path/to/serviceAccountKey.json
+
+### Running with Docker
+
+**Build the image**
+npm run docker:build
+
+**Run the container**
+npm run docker:run
+
+### Deployment on Google Cloud Run
+**Build and push to Google Container Registry (GCR)**
+docker build -t gcr.io/your-gcp-project-id/document-backend:latest .
+docker push gcr.io/your-gcp-project-id/document-backend:latest
+
+**Deploy to Cloud Run**
+gcloud run deploy document-backend \
+  --image gcr.io/your-gcp-project-id/document-backend:latest \
+  --platform managed \
+  --region your-region \
+  --allow-unauthenticated
